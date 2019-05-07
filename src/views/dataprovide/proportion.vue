@@ -16,7 +16,7 @@
           <td>上广联</td>
           <td>vipkid-1903</td>
           <td>model_20190409_wn_8w_bj_yimei_rise</td>
-          <td></td>
+          <td>13133</td>
           <td>1</td>
         </tr>
         </tbody>
