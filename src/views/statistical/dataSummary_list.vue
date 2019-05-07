@@ -2,8 +2,8 @@
     <div> 好的呢</div>
 </template>
 <script>
-    export default{
-
-    }
+export default {
+  name: 'data_Summary'
+}
 </script>
 <style></style>

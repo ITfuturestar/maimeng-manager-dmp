@@ -15,7 +15,7 @@
             <li v-if="prev"><a href="javascript:void(0)" @click="prev_page">上一页</a></li>
             <li v-else><a class="disabled">上一页</a></li>
           </template>
-          <li v-for="p in pager">
+          <li v-for="(p, index) in pager" v-bind:key="index">
             <a v-if="p==current" class="current">{{p}}</a>
             <a v-else href="javascript:void(0)" @click="goto(p)">{{p}}</a>
           </li>
@@ -31,63 +31,63 @@
 </template>
 
 <script>
-  export default {
-    data(){
-      return{
-        page:1,                //跳转到多少页
-        size:10,               //每页显示条数
-        pagers:5,              //页码显示个数
-        current:this.cur       //当前页码
-      }
+export default {
+  data () {
+    return {
+      page: 1, // 跳转到多少页
+      size: 10, // 每页显示条数
+      pagers: 5, // 页码显示个数
+      current: this.cur // 当前页码
+    }
+  },
+  props: ['cur', 'total_page', 'total_count', 'show_size'], // 接收参数['当前页','总页数','总行数','是否显示每页显示数量']
+  computed: {
+    prev: function () {
+      return this.current !== 1
     },
-    props:["cur","total_page","total_count","show_size"], //接收参数['当前页','总页数','总行数','是否显示每页显示数量']
-    computed:{
-      prev:function () {
-        return this.current==1?false:true;
-      },
-      next:function () {
-        return this.current==this.total_page?false:true;
-      },
-      pager:function () {
-        let list=[];
-        let end=Math.ceil(this.current/this.pagers)*this.pagers;
-        let max=this.total_page<end?this.total_page:end;
-        let p=max-this.pagers+1;
-        let min=p<=0?1:p;
-
-        for(min;min<=max;min++){
-          list.push(min);
-        }
-
-        return list;
-      }
+    next: function () {
+      return this.current !== this.total_page
     },
-    methods:{
-      goto(i){
-        if(i==0){
-          if(this.page>this.total_page){this.page=this.total_page;}
-          if(this.page<1){this.page=1;}
-          i=this.page;
-        }
+    pager: function () {
+      let list = []
+      let end = Math.ceil(this.current / this.pagers) * this.pagers
+      let max = this.total_page < end ? this.total_page : end
+      let p = max - this.pagers + 1
+      let min = p <= 0 ? 1 : p
 
-        this.current=i;
-        this.$emit('change',this.current,this.size);
-      },
-      prev_page(){
-        this.current--;
-        this.$emit('change',this.current,this.size);
-      },
-      next_page(){
-        this.current++;
-        this.$emit('change',this.current,this.size);
-      },
-      change_size(e) {
-        this.current='1';
-        this.size=e.target.value;
-        this.$emit('change',this.current,this.size);
+      for (min; min <= max; min++) {
+        list.push(min)
       }
+
+      return list
+    }
+  },
+  methods: {
+    goto (i) {
+      if (i === 0) {
+        if (this.page > this.total_page) { this.page = this.total_page }
+        if (this.page < 1) { this.page = 1 }
+        i = this.page
+      }
+
+      this.current = i
+      this.$emit('change', this.current, this.size)
+    },
+    prev_page () {
+      this.current--
+      this.$emit('change', this.current, this.size)
+    },
+    next_page () {
+      this.current++
+      this.$emit('change', this.current, this.size)
+    },
+    change_size (e) {
+      this.current = '1'
+      this.size = e.target.value
+      this.$emit('change', this.current, this.size)
     }
   }
+}
 </script>
 
 <style scoped>

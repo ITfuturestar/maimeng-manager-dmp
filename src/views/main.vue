@@ -31,9 +31,9 @@
                     <li name="level-1">
                         <a href="javascript:void(0)" @click="menu_selects"><span class="basis"></span>数据提供</a><span class="down"></span>
                         <ul>
-                            <li name="level-2"><a href="javascript:void(0)" @click="menu_select">任务日志</a></li>
+                            <li name="level-2"><a href="javascript:void(0)" data-router="dataprovide/jobLog" @click="menu_select">任务日志</a></li>
                             <li name="level-2"><a href="javascript:void(0)" @click="menu_select">提供比例</a></li>
-                            <li name="level-2"><a href="javascript:void(0)" @click="menu_select">模型可用</a></li>
+                            <li name="level-2"><a href="javascript:void(0)" data-router="dataprovide/proportion" @click="menu_select">模型可用</a></li>
                         </ul>
                     </li>
                     <li name="level-1">
@@ -41,8 +41,8 @@
                         <ul>
                             <li name="level-2"><a href="javascript:void(0)" @click="menu_select">数据概况</a></li>
                             <li name="level-2"><a href="javascript:void(0)" @click="menu_select">坐席概况</a></li>
-                            <li name="level-2"><a href="javascript:void(0)" @click="menu_select">人均产出</a></li>
-                            <li name="level-2"><a href="javascript:void(0)" @click="menu_select">详细报表</a></li>
+                            <li name="level-2"><a href="javascript:void(0)" data-router="statistical/perCapita" @click="menu_select">人均产出</a></li>
+                            <li name="level-2"><a href="javascript:void(0)" data-router="statistical/detailReport" @click="menu_select">详细报表</a></li>
                             <li name="level-2"><a href="javascript:void(0)" @click="menu_select">内部运营</a></li>
                             <li name="level-2"><a href="javascript:void(0)" @click="menu_select">不成单原因</a></li>
                         </ul>
@@ -50,9 +50,9 @@
                     <li name="level-1">
                         <a href="javascript:void(0)" @click="menu_selects"><span class="basis"></span>职场展示</a><span class="down"></span>
                         <ul>
-                            <li name="level-2"><a href="javascript:void(0)"  @click="menu_select">数据概况</a></li>
+                            <li name="level-2"><a href="javascript:void(0)" @click="menu_select">数据概况</a></li>
                             <li name="level-2"><a href="javascript:void(0)" @click="menu_select">坐席能力</a></li>
-                            <li name="level-2"><a href="javascript:void(0)" @click="menu_select">坐席功效</a></li>
+                            <li name="level-2"><a href="javascript:void(0)" data-router="workplace/seatEffect" @click="menu_select">坐席功效</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -61,43 +61,44 @@
     </div>
 </template>
 <script>
-   export default {
-        data() {
-            return{
-                height: 300
-            }
-        },
-        created() {
-            this.height = document.documentElement.clientHeight-75;
-        },
-        methods: {
-            menu_select(e){
-                let list2=document.getElementsByName("level-2");
-                for(let i=0;i<list2.length;i++){
-                    list2[i].className="";
-                }
-                e.path[1].className="current";
+export default {
+  data () {
+    return {
+      height: 300
+    }
+  },
+  created () {
+    this.height = document.documentElement.clientHeight - 75
+  },
+  methods: {
+    menu_select (e) {
+      let list2 = document.getElementsByName('level-2')
+      for (let i = 0; i < list2.length; i++) {
+        list2[i].className = ''
+      }
+      e.path[1].className = 'current'
 
-                //this.current=e.target.getAttribute("data-router");
-                //this.$router.push({
-                    //path:'/'+this.current
-                //});
-            },
-            menu_selects(e){
-                let list1=document.getElementsByName("level-1");
-                for(let i=0;i<list1.length;i++){
-                    list1[i].className="";
-                }
-                e.path[1].className="current";
-            },
-            logout(){
-                this.$router.push({
-                    path:'/'
-                }); 
-            }
-        }
-   }
+      this.current = e.target.getAttribute('data-router')
+      this.$router.push({
+        path: '/' + this.current
+      })
+    },
+    menu_selects (e) {
+      e.path[1].className = 'current'
+      let list1 = document.getElementsByName('level-1')
+      for (let i = 0; i < list1.length; i++) {
+        list1[i].className = ''
+      }
+      e.path[1].className = 'current'
+    },
+    logout () {
+      this.$router.push({
+        path: '/'
+      })
+    }
+  }
+}
 </script>
 <style>
-    @import '../assets/css/pages/main.css'
+  @import '../assets/css/pages/main.css';
 </style>

@@ -30,43 +30,44 @@
     </div>
 </template>
 <script>
-    import {login} from '@/api/login'
-    import {required} from 'vuelidate/lib/validators'
-    export default{
-        data(){
-            return {
-                username: "admin",
-                password: "000000"
-            }
-        },
-        validations: {
-            username: {required},
-            password: {required}
-        },
-        methods: {
-            login(){
-                this.$router.push('/main');
-                this.$v.$touch();
-                //数据提交
-                if(!this.$v.$error) {
-
-                    //登录信息校验
-                    login(this.username,this.password).then((res) => {
-                        if (res.code == 200) {
-                            setCookie("token", res.data);
-                            setCookie("username", this.username);
-
-                            this.$router.push('/voice/quality');
-                            this.$message.success("登录成功");
-                        } else {
-                            this.$message.error(res.message);
-                        }
-                    });
-                }
-            }
-        }
+import {login} from '@/api/login'
+import {required} from 'vuelidate/lib/validators'
+export default{
+  data () {
+    return {
+      username: 'admin',
+      password: '000000'
     }
+  },
+  validations: {
+    username: {required},
+    password: {required}
+  },
+  methods: {
+    login () {
+      this.$router.push('/main')
+      this.$v.$touch()
+      // 数据提交
+      if (!this.$v.$error) {
+        // 登录信息校验
+        login(this.username, this.password).then((res) => {
+          if (res.code === 200) {
+            // eslint-disable-next-line no-undef
+            setCookie('token', res.data)
+            // eslint-disable-next-line no-undef
+            setCookie('username', this.username)
+
+            this.$router.push('/voice/quality')
+            this.$message.success('登录成功')
+          } else {
+            this.$message.error(res.message)
+          }
+        })
+      }
+    }
+  }
+}
 </script>
 <style>
-    @import '../assets/css/pages/login.css'
+    @import '../assets/css/pages/login.css';
 </style>
